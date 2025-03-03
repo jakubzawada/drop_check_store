@@ -16,12 +16,10 @@ class TopNavBar extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
         child: const Row(
           children: [
-            Text(
-              'DC',
-              style: TextStyle(
-                  fontSize: 60,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold),
+            Image(
+              image: AssetImage('images/icon4.png'),
+              width: 100,
+              height: 100,
             ),
             Spacer(),
             Row(
