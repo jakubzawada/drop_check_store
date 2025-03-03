@@ -1,3 +1,4 @@
+import 'package:drop_check_store/widgets/main_hub.dart';
 import 'package:drop_check_store/widgets/top_nav_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -12,23 +13,7 @@ class UltraWideHomePage extends StatelessWidget {
           SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 80),
-                Padding(
-                  padding: EdgeInsets.only(top: 200, left: 200.0, right: 220),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Placeholder(
-                        child: SizedBox(height: 100, width: 100),
-                      ),
-                      Placeholder(
-                        child: SizedBox(height: 100, width: 100),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              children: [MainHub(), SizedBox(height: 40), Placeholder()],
             ),
           ),
           TopNavBar(),
