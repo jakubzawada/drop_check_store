@@ -17,7 +17,7 @@ class TopNavBar extends StatelessWidget {
         child: const Row(
           children: [
             Image(
-              image: AssetImage('images/icon4.png'),
+              image: AssetImage('images/DCLogo2.png'),
               width: 100,
               height: 100,
             ),

@@ -1,3 +1,4 @@
+import 'package:drop_check_store/app/home/pages/bottom_hub.dart';
 import 'package:drop_check_store/widgets/bestseller_products.dart';
 import 'package:drop_check_store/widgets/main_hub.dart';
 import 'package:drop_check_store/widgets/top_nav_bar.dart';
@@ -8,27 +9,34 @@ class UltraWideHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Stack(
         children: [
           SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                MainHub(),
-                SizedBox(height: 40),
-                Placeholder(
-                  fallbackHeight: 600,
+                const MainHub(),
+                const SizedBox(height: 40),
+                SizedBox(
+                  width: double.infinity,
+                  child: const Image(
+                    image: AssetImage('images/hubbaner.png'),
+                    height: 800,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                SizedBox(height: 40),
-                Center(
+                const SizedBox(height: 40),
+                const Center(
                   child: Text('BESTSELLERY', style: TextStyle(fontSize: 50)),
                 ),
-                BestsellerProducts(),
+                const BestsellerProducts(),
+                const SizedBox(height: 140),
+                const BottomHub(),
               ],
             ),
           ),
-          TopNavBar(),
+          const TopNavBar(),
         ],
       ),
     );
