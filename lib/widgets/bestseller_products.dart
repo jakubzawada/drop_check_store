@@ -8,8 +8,9 @@ class BestsellerProducts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Padding(
-      padding: EdgeInsets.only(left: 40.0, bottom: 40),
+      padding: EdgeInsets.only(bottom: 40),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Column(
             children: [

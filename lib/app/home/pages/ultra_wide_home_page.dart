@@ -1,5 +1,6 @@
-import 'package:drop_check_store/app/home/pages/bottom_hub.dart';
+import 'package:drop_check_store/widgets/bottom_hub.dart';
 import 'package:drop_check_store/widgets/bestseller_products.dart';
+import 'package:drop_check_store/widgets/brand_hub.dart';
 import 'package:drop_check_store/widgets/main_hub.dart';
 import 'package:drop_check_store/widgets/top_nav_bar.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,8 @@ class UltraWideHomePage extends StatelessWidget {
                 ),
                 const BestsellerProducts(),
                 const SizedBox(height: 140),
+                BrandHub(),
+                const SizedBox(height: 60),
                 const BottomHub(),
               ],
             ),
