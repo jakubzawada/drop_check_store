@@ -1,63 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class BestsellerProducts extends StatelessWidget {
-  const BestsellerProducts({
-    super.key,
-  });
+  const BestsellerProducts({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(bottom: 40),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Column(
-            children: [
-              Image(
-                image: AssetImage('images/Jordan1BleachedCoral.webp'),
-                width: 400,
-                height: 400,
-              ),
-              Text('Jordan 1 Bleached Coral'),
-              Text('1249 PLN'),
-            ],
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection('bestseller').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          return const Center(child: Text('Brak bestsellerów.'));
+        }
+
+        var products = snapshot.data!.docs;
+
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 40),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: products.map((product) {
+              var data = product.data() as Map<String, dynamic>;
+              return Column(
+                children: [
+                  Image.network(
+                    data['image'],
+                    width: 400,
+                    height: 400,
+                    errorBuilder: (context, error, stackTrace) =>
+                        const Icon(Icons.broken_image, size: 200),
+                  ),
+                  Text(data['name'],
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                  Text('${data['price']} PLN'),
+                ],
+              );
+            }).toList(),
           ),
-          Column(
-            children: [
-              Image(
-                image: AssetImage('images/Jordan4RedCement.webp'),
-                width: 400,
-                height: 400,
-              ),
-              Text('Jordan 4 Red Cement'),
-              Text('1849 PLN'),
-            ],
-          ),
-          Column(
-            children: [
-              Image(
-                image: AssetImage('images/NewBalanceSeaSaltWhite.webp'),
-                width: 400,
-                height: 400,
-              ),
-              Text('New Balance Sea Salt White'),
-              Text('869 PLN'),
-            ],
-          ),
-          Column(
-            children: [
-              Image(
-                image: AssetImage('images/YeezyOnyx350.webp'),
-                width: 400,
-                height: 400,
-              ),
-              Text('Yeezy Onyx 350'),
-              Text('1189 PLN'),
-            ],
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
