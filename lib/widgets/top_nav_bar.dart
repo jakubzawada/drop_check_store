@@ -1,5 +1,6 @@
+import 'package:drop_check_store/widgets/hover_menu_clothes.dart';
 import 'package:flutter/material.dart';
-import 'hover_menu.dart';
+import 'hover_menu_sneakers_.dart';
 
 class TopNavBar extends StatefulWidget {
   const TopNavBar({super.key});
@@ -12,17 +13,29 @@ class TopNavBarState extends State<TopNavBar> {
   OverlayEntry? _overlayEntry;
   final LayerLink _layerLink = LayerLink();
 
-  void _showMenu(BuildContext context, Offset position,
-      Map<String, List<String>> categories) {
+  void _showMenu(BuildContext context, Map<String, List<String>> categories,
+      bool isClothes) {
     _hideMenu();
 
     final overlay = Overlay.of(context);
     _overlayEntry = OverlayEntry(
-      builder: (context) => HoverMenu(
-        position: position,
-        categories: categories,
-        onExit: _hideMenu,
-      ),
+      builder: (context) => isClothes
+          ? HoverMenuClothes(
+              position: Offset(
+                MediaQuery.of(context).size.width / 2 - 500,
+                75,
+              ),
+              categories: categories,
+              onExit: _hideMenu,
+            )
+          : HoverMenuSneakers(
+              position: Offset(
+                MediaQuery.of(context).size.width / 2 - 750,
+                75,
+              ),
+              categories: categories,
+              onExit: _hideMenu,
+            ),
     );
     overlay.insert(_overlayEntry!);
   }
@@ -73,11 +86,24 @@ class TopNavBarState extends State<TopNavBar> {
                         'Koszulki': ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
                         'Kurtki': ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
                       },
+                      true,
                     ),
                     const SizedBox(width: 20),
                     const Text('/'),
                     const SizedBox(width: 20),
-                    const Text('BUTY'),
+                    _buildMenuItem(
+                      context,
+                      'BUTY',
+                      {
+                        'Wszystkie': [],
+                        'Air Jordan': ['40', '41', '42', '43', '44', '45'],
+                        'Nike': ['40', '41', '42', '43', '44', '45'],
+                        'Adidas': ['40', '41', '42', '43', '44', '45'],
+                        'Adidas Yeezy': ['40', '41', '42', '43', '44', '45'],
+                        'New Balance': ['40', '41', '42', '43', '44', '45'],
+                      },
+                      false,
+                    ),
                     const SizedBox(width: 20),
                     const Text('/'),
                     const SizedBox(width: 20),
@@ -110,14 +136,10 @@ class TopNavBarState extends State<TopNavBar> {
   }
 
   Widget _buildMenuItem(BuildContext context, String title,
-      Map<String, List<String>> categories) {
+      Map<String, List<String>> categories, bool isClothes) {
     return MouseRegion(
       onEnter: (event) {
-        _showMenu(
-          context,
-          Offset(event.position.dx, event.position.dy + 10),
-          categories,
-        );
+        _showMenu(context, categories, isClothes);
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
