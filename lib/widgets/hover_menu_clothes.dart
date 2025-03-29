@@ -1,3 +1,4 @@
+import 'package:drop_check_store/app/home/pages/products_page.dart';
 import 'package:flutter/material.dart';
 
 class HoverMenuClothes extends StatelessWidget {
@@ -41,20 +42,42 @@ class HoverMenuClothes extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          entry.key,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ProductsPage(category: entry.key),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            entry.key,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
                           ),
                         ),
                         const SizedBox(height: 10),
                         ...entry.value.map(
-                          (size) => Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 4),
-                            child: Text(
-                              size,
-                              style: const TextStyle(fontSize: 16),
+                          (size) => GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProductsPage(
+                                      category: entry.key, size: size),
+                                ),
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 4),
+                              child: Text(
+                                size,
+                                style: const TextStyle(fontSize: 16),
+                              ),
                             ),
                           ),
                         ),
