@@ -1,3 +1,4 @@
+import 'package:drop_check_store/app/home/home_page.dart';
 import 'package:drop_check_store/widgets/hover_menu_clothes.dart';
 import 'package:flutter/material.dart';
 import 'hover_menu_sneakers_.dart';
@@ -67,10 +68,18 @@ class TopNavBarState extends State<TopNavBar> {
           ),
           child: Row(
             children: [
-              const Image(
-                image: AssetImage('images/DCLogo2.png'),
-                width: 80,
-                height: 80,
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomePage()),
+                  );
+                },
+                child: const Image(
+                  image: AssetImage('images/DCLogo2.png'),
+                  width: 80,
+                  height: 80,
+                ),
               ),
               const SizedBox(width: 20),
               Expanded(
