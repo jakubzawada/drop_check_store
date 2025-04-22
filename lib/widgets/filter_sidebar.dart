@@ -21,9 +21,14 @@ class FilterSidebar extends StatelessWidget {
           const Text("Filtruj",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
           const SizedBox(height: 20),
-          const Text("Rozmiar"),
+          const Text(
+            "Rozmiar",
+            style: TextStyle(fontSize: 18),
+          ),
+          const SizedBox(height: 10),
           Wrap(
             spacing: 10,
+            runSpacing: 5,
             children: ['XS', 'S', 'M', 'L', 'XL', 'XXL'].map((size) {
               return ChoiceChip(
                 label: Text(size),
@@ -41,7 +46,6 @@ class FilterSidebar extends StatelessWidget {
             }).toList(),
           ),
           const SizedBox(height: 30),
-          // Możesz dodać filtr "marka", "cena" itd. podobnie
         ],
       ),
     );
