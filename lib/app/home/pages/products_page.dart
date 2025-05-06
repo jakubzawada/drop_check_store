@@ -7,8 +7,16 @@ import 'package:drop_check_store/widgets/top_nav_bar.dart';
 class ProductsPage extends StatefulWidget {
   final String category;
   final String? size;
+  final double? minPrice;
+  final double? maxPrice;
 
-  const ProductsPage({super.key, required this.category, this.size});
+  const ProductsPage({
+    super.key,
+    required this.category,
+    this.size,
+    this.minPrice,
+    this.maxPrice,
+  });
 
   @override
   State<ProductsPage> createState() => _ProductsPageState();
@@ -17,14 +25,19 @@ class ProductsPage extends StatefulWidget {
 class _ProductsPageState extends State<ProductsPage> {
   @override
   Widget build(BuildContext context) {
-    print('Pobieranie z kategorii: ${widget.category}');
-
     Query<Map<String, dynamic>> query = FirebaseFirestore.instance
         .collection('products')
         .where('category', isEqualTo: widget.category);
 
     if (widget.size != null) {
       query = query.where('size', arrayContains: widget.size);
+    }
+
+    if (widget.minPrice != null) {
+      query = query.where('price', isGreaterThanOrEqualTo: widget.minPrice);
+    }
+    if (widget.maxPrice != null) {
+      query = query.where('price', isLessThanOrEqualTo: widget.maxPrice);
     }
 
     return Scaffold(
@@ -40,7 +53,11 @@ class _ProductsPageState extends State<ProductsPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(width: 20),
-                      FilterSidebar(widget: widget),
+                      Column(
+                        children: [
+                          FilterSidebar(widget: widget),
+                        ],
+                      ),
                       const SizedBox(width: 20),
                       Expanded(
                         child:
@@ -113,7 +130,7 @@ class _ProductsPageState extends State<ProductsPage> {
                     ],
                   ),
                   const SizedBox(height: 30),
-                  BottomHub(), // <- teraz pełna szerokość
+                  BottomHub(),
                 ],
               ),
             ),
