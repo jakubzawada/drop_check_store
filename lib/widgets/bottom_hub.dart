@@ -1,3 +1,4 @@
+import 'package:drop_check_store/widgets/link_text.dart';
 import 'package:flutter/material.dart';
 
 class BottomHub extends StatelessWidget {
@@ -96,18 +97,15 @@ class BottomHub extends StatelessWidget {
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                     SizedBox(height: 20),
-                    Text(
-                      'Instagram',
-                      style: TextStyle(
-                        color: Colors.white54,
-                      ),
+                    LinkText(
+                      text: 'Instagram',
+                      url: 'https://www.instagram.com/dropcheck.app/',
                     ),
                     SizedBox(height: 10),
-                    Text(
-                      'Facebook',
-                      style: TextStyle(
-                        color: Colors.white54,
-                      ),
+                    LinkText(
+                      text: 'Facebook',
+                      url:
+                          'https://www.facebook.com/profile.php?id=61564449824160',
                     ),
                   ],
                 ),
