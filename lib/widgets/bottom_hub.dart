@@ -1,3 +1,4 @@
+import 'package:drop_check_store/app/home/pages/regulations_page.dart';
 import 'package:drop_check_store/widgets/link_text.dart';
 import 'package:flutter/material.dart';
 
@@ -43,15 +44,21 @@ class BottomHub extends StatelessWidget {
                               ],
                             ),
                             SizedBox(height: 20),
-                            Row(
-                              children: [
-                                Text(
-                                  'Regulamin',
-                                  style: TextStyle(
-                                    color: Colors.white54,
-                                  ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => RegulationsPage()),
+                                );
+                              },
+                              child: Text(
+                                'Regulamin',
+                                style: TextStyle(
+                                  color: Colors.white54,
+                                  decoration: TextDecoration.underline,
                                 ),
-                              ],
+                              ),
                             ),
                             SizedBox(height: 10),
                             Text(
