@@ -20,8 +20,11 @@ class UltraWideHomePage extends StatelessWidget {
                 const SizedBox(height: 150),
                 const BannerCarousel(),
                 const SizedBox(height: 40),
-                const Center(
-                  child: Text('BESTSELLERY', style: TextStyle(fontSize: 50)),
+                Center(
+                  child: Text(
+                    'BESTSELLERY',
+                    style: TextStyle(fontSize: 50, color: Colors.grey[800]),
+                  ),
                 ),
                 const BestsellerProducts(),
                 const SizedBox(height: 140),

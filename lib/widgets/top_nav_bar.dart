@@ -22,18 +22,12 @@ class TopNavBarState extends State<TopNavBar> {
     _overlayEntry = OverlayEntry(
       builder: (context) => isClothes
           ? HoverMenuClothes(
-              position: Offset(
-                MediaQuery.of(context).size.width / 2 - 500,
-                75,
-              ),
+              position: Offset(MediaQuery.of(context).size.width / 2 - 500, 75),
               categories: categories,
               onExit: _hideMenu,
             )
           : HoverMenuSneakers(
-              position: Offset(
-                MediaQuery.of(context).size.width / 2 - 750,
-                75,
-              ),
+              position: Offset(MediaQuery.of(context).size.width / 2 - 750, 75),
               categories: categories,
               onExit: _hideMenu,
             ),
@@ -98,7 +92,7 @@ class TopNavBarState extends State<TopNavBar> {
                       true,
                     ),
                     const SizedBox(width: 20),
-                    const Text('/'),
+                    _styledDivider(),
                     const SizedBox(width: 20),
                     _buildMenuItem(
                       context,
@@ -114,17 +108,17 @@ class TopNavBarState extends State<TopNavBar> {
                       false,
                     ),
                     const SizedBox(width: 20),
-                    const Text('/'),
+                    _styledDivider(),
                     const SizedBox(width: 20),
-                    const Text('AKCESORIA'),
+                    _staticMenuItem('AKCESORIA'),
                     const SizedBox(width: 20),
-                    const Text('/'),
+                    _styledDivider(),
                     const SizedBox(width: 20),
-                    const Text('PROMOCJE'),
+                    _staticMenuItem('PROMOCJE'),
                     const SizedBox(width: 20),
-                    const Text('/'),
+                    _styledDivider(),
                     const SizedBox(width: 20),
-                    const Text('KARTY PODARUNKOWE'),
+                    _staticMenuItem('KARTY PODARUNKOWE'),
                   ],
                 ),
               ),
@@ -152,7 +146,38 @@ class TopNavBarState extends State<TopNavBar> {
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Text(title),
+        child: Text(
+          title,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF333333),
+            letterSpacing: 1.2,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _staticMenuItem(String title) {
+    return Text(
+      title,
+      style: const TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.bold,
+        color: Color(0xFF333333),
+        letterSpacing: 1.2,
+      ),
+    );
+  }
+
+  Widget _styledDivider() {
+    return Text(
+      '/',
+      style: TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        color: Colors.grey[700],
       ),
     );
   }
