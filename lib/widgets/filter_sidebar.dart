@@ -16,12 +16,31 @@ class FilterSidebar extends StatefulWidget {
 class _FilterSidebarState extends State<FilterSidebar> {
   RangeValues _selectedRange = const RangeValues(0, 1000);
 
+  final List<String> shoeCategories = [
+    'Air Jordan',
+    'Nike',
+    'Adidas',
+    'Adidas Yeezy',
+    'New Balance',
+    'Wszystkie',
+  ];
+
+  List<String> getSizesForCategory(String category) {
+    if (shoeCategories.contains(category)) {
+      return ['40', '41', '42', '43', '44', '45'];
+    } else {
+      return ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final currentCategory = widget.widget.category;
+    final availableSizes = getSizesForCategory(currentCategory);
+
     return Container(
       width: 250,
       padding: const EdgeInsets.all(20),
-      color: Colors.grey[100],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -33,7 +52,7 @@ class _FilterSidebarState extends State<FilterSidebar> {
           Wrap(
             spacing: 10,
             runSpacing: 5,
-            children: ['XS', 'S', 'M', 'L', 'XL', 'XXL'].map((size) {
+            children: availableSizes.map((size) {
               return ChoiceChip(
                 label: Text(size),
                 selected: widget.widget.size == size,
