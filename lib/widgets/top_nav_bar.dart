@@ -1,4 +1,5 @@
 import 'package:drop_check_store/app/home/home_page.dart';
+import 'package:drop_check_store/app/home/pages/login/login_page.dart';
 import 'package:drop_check_store/widgets/hover_menu_clothes.dart';
 import 'package:flutter/material.dart';
 import 'hover_menu_sneakers_.dart';
@@ -123,10 +124,20 @@ class TopNavBarState extends State<TopNavBar> {
                 ),
               ),
               Row(
-                children: const [
+                children: [
                   Icon(Icons.search, size: 30),
                   SizedBox(width: 20),
-                  Icon(Icons.person, size: 30),
+                  InkWell(
+                    child: Icon(Icons.person, size: 30),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginPage(),
+                        ),
+                      );
+                    },
+                  ),
                   SizedBox(width: 20),
                   Icon(Icons.shopping_bag_outlined, size: 30),
                 ],

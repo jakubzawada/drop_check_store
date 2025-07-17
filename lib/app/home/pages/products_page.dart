@@ -1,7 +1,6 @@
 import 'package:drop_check_store/app/home/pages/cubit/products_cubit.dart';
 import 'package:drop_check_store/widgets/bottom_hub.dart';
 import 'package:drop_check_store/widgets/filter_sidebar.dart';
-import 'package:drop_check_store/widgets/product_category_hub.dart';
 import 'package:drop_check_store/widgets/product_grind_view.dart';
 import 'package:flutter/material.dart';
 import 'package:drop_check_store/widgets/top_nav_bar.dart';
@@ -61,34 +60,92 @@ class _ProductsPageState extends State<ProductsPage> {
                             children: [
                               BlocBuilder<ProductsCubit, ProductsState>(
                                 builder: (context, state) {
-                                  return ProductCategoryHub(widget: widget);
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 40),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Divider(thickness: 1),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                const Icon(Icons.category,
+                                                    color: Colors.black87),
+                                                const SizedBox(width: 10),
+                                                Text(
+                                                  widget.category,
+                                                  style: const TextStyle(
+                                                    fontSize: 22,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                if (widget.size != null) ...[
+                                                  const SizedBox(width: 20),
+                                                  Container(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 12,
+                                                        vertical: 6),
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.grey[200],
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                    ),
+                                                    child: Text(
+                                                      'Rozmiar: ${widget.size}',
+                                                      style: const TextStyle(
+                                                          fontSize: 14),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ],
+                                            ),
+                                            Text(
+                                              'Produkty (${state.products.length})',
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.black54,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const Divider(thickness: 1),
+                                      ],
+                                    ),
+                                  );
                                 },
                               ),
                               BlocBuilder<ProductsCubit, ProductsState>(
-                                builder: (context, state) {
-                                  if (state.errorMessage.isNotEmpty) {
-                                    return Center(
-                                      child: Text(
-                                        'Something went wrong: ${state.errorMessage}',
-                                      ),
-                                    );
-                                  }
+                                  builder: (context, state) {
+                                if (state.errorMessage.isNotEmpty) {
+                                  return Center(
+                                    child: Text(
+                                      'Something went wrong: ${state.errorMessage}',
+                                    ),
+                                  );
+                                }
 
-                                  if (state.isLoading) {
-                                    return const Center(
-                                        child: CircularProgressIndicator());
-                                  }
+                                if (state.isLoading) {
+                                  return const Center(
+                                      child: CircularProgressIndicator());
+                                }
 
-                                  var products = state.products;
+                                var products = state.products;
 
-                                  if (products.isEmpty) {
-                                    return const Center(
-                                        child: Text('Brak produktów'));
-                                  }
+                                if (products.isEmpty) {
+                                  return const Center(
+                                      child: Text('Brak produktów'));
+                                }
 
-                                  return ProductGridView(products: products);
-                                },
-                              ),
+                                return ProductGridView(products: products);
+                              }),
                             ],
                           ),
                         ),
