@@ -1,3 +1,6 @@
+import 'package:drop_check_store/app/home/pages/login/widgets/sign_in_container.dart';
+import 'package:drop_check_store/widgets/bottom_hub.dart';
+import 'package:drop_check_store/widgets/top_nav_bar.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -5,6 +8,24 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(height: 160),
+                Center(
+                  child: SignInContainer(),
+                ),
+                const SizedBox(height: 100),
+                const BottomHub(),
+              ],
+            ),
+          ),
+          const TopNavBar(),
+        ],
+      ),
+    );
   }
 }
