@@ -1,4 +1,4 @@
-import 'package:drop_check_store/app/home/pages/login/widgets/sign_in_container.dart';
+import 'package:drop_check_store/app/login/widgets/sign_in_container.dart';
 import 'package:drop_check_store/widgets/bottom_hub.dart';
 import 'package:drop_check_store/widgets/top_nav_bar.dart';
 import 'package:flutter/material.dart';

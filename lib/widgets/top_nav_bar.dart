@@ -1,6 +1,7 @@
 import 'package:drop_check_store/app/home/home_page.dart';
-import 'package:drop_check_store/app/home/pages/login/login_page.dart';
+import 'package:drop_check_store/app/login/login_page.dart';
 import 'package:drop_check_store/widgets/hover_menu_clothes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'hover_menu_sneakers_.dart';
 
@@ -10,6 +11,8 @@ class TopNavBar extends StatefulWidget {
   @override
   TopNavBarState createState() => TopNavBarState();
 }
+
+late final User user;
 
 class TopNavBarState extends State<TopNavBar> {
   OverlayEntry? _overlayEntry;
@@ -67,7 +70,10 @@ class TopNavBarState extends State<TopNavBar> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
+                    MaterialPageRoute(
+                        builder: (context) => HomePage(
+                              user: user,
+                            )),
                   );
                 },
                 child: const Image(
