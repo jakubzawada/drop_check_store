@@ -1,13 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class SignInContainer extends StatelessWidget {
-  SignInContainer({
-    super.key,
-  });
+class SignInContainer extends StatefulWidget {
+  SignInContainer({super.key});
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  @override
+  State<SignInContainer> createState() => _SignInContainerState();
+}
+
+class _SignInContainerState extends State<SignInContainer> {
+  var errorMessage = '';
+  var isCreatingAccount = false;
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +36,8 @@ class SignInContainer extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text(
-              'Zaloguj się',
+            Text(
+              isCreatingAccount == true ? 'Zarejestruj się' : 'Zaloguj się',
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
@@ -40,7 +46,7 @@ class SignInContainer extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             TextField(
-              controller: emailController,
+              controller: widget.emailController,
               decoration: InputDecoration(
                 labelText: 'Email',
                 border: OutlineInputBorder(),
@@ -48,31 +54,50 @@ class SignInContainer extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             TextField(
-              controller: passwordController,
+              controller: widget.passwordController,
               obscureText: true,
               decoration: InputDecoration(
                 labelText: 'Hasło',
                 border: OutlineInputBorder(),
               ),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 10),
+            Center(
+              child: Text(errorMessage),
+            ),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
-                try {
-                  await FirebaseAuth.instance.signInWithEmailAndPassword(
-                    email: emailController.text,
-                    password: passwordController.text,
-                  );
-                } catch (error) {
-                  print(error);
+                if (isCreatingAccount == true) {
+                  try {
+                    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                      email: widget.emailController.text,
+                      password: widget.passwordController.text,
+                    );
+                  } catch (error) {
+                    setState(() {
+                      errorMessage = error.toString();
+                    });
+                  }
+                } else {
+                  try {
+                    await FirebaseAuth.instance.signInWithEmailAndPassword(
+                      email: widget.emailController.text,
+                      password: widget.passwordController.text,
+                    );
+                  } catch (error) {
+                    setState(() {
+                      errorMessage = error.toString();
+                    });
+                  }
                 }
               },
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 backgroundColor: Colors.black,
               ),
-              child: const Text(
-                'Zaloguj się',
+              child: Text(
+                isCreatingAccount == true ? 'Zarejestruj się' : 'Zaloguj się',
                 style: TextStyle(fontSize: 16, color: Colors.white),
               ),
             ),
@@ -82,10 +107,26 @@ class SignInContainer extends StatelessWidget {
               child: const Text('Nie pamiętasz hasła?'),
             ),
             const SizedBox(height: 10),
-            TextButton(
-              onPressed: () {},
-              child: const Text('Nie masz konta? Zarejestruj się'),
-            ),
+            if (isCreatingAccount == false) ...[
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    isCreatingAccount = true;
+                  });
+                },
+                child: const Text('Nie masz konta? Zarejestruj się'),
+              ),
+            ],
+            if (isCreatingAccount == true) ...[
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    isCreatingAccount = false;
+                  });
+                },
+                child: const Text('Masz już konto? Zaloguj się'),
+              ),
+            ],
           ],
         ),
       ),
