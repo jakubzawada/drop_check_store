@@ -1,10 +1,10 @@
-import 'package:drop_check_store/app/home/home_page.dart';
-import 'package:drop_check_store/app/home/pages/account_page.dart';
-import 'package:drop_check_store/app/login/login_page.dart';
-import 'package:drop_check_store/widgets/hover_menu_clothes.dart';
+import 'package:drop_check_store/features/home/home_page.dart';
+import 'package:drop_check_store/features/home/account/presentation/pages/account_page.dart';
+import 'package:drop_check_store/features/home/login/presentation/pages/login_page.dart';
+import 'package:drop_check_store/core/widgets/hover_menu_clothes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'hover_menu_sneakers_.dart';
+import 'hover_menu_sneakers.dart';
 
 class TopNavBar extends StatefulWidget {
   const TopNavBar({super.key});

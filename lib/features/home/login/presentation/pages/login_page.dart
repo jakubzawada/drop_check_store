@@ -1,6 +1,6 @@
-import 'package:drop_check_store/app/login/widgets/sign_in_container.dart';
-import 'package:drop_check_store/widgets/bottom_hub.dart';
-import 'package:drop_check_store/widgets/top_nav_bar.dart';
+import 'package:drop_check_store/features/home/login/presentation/widgets/sign_in_container.dart';
+import 'package:drop_check_store/core/widgets/bottom_hub.dart';
+import 'package:drop_check_store/core/widgets/top_nav_bar.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {

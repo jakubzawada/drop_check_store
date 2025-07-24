@@ -1,12 +1,12 @@
-import 'package:drop_check_store/app/home/pages/products_page.dart';
+import 'package:drop_check_store/features/home/products/presentation/pages/products_page.dart';
 import 'package:flutter/material.dart';
 
-class HoverMenuSneakers extends StatelessWidget {
+class HoverMenuClothes extends StatelessWidget {
   final Offset position;
   final Map<String, List<String>> categories;
   final VoidCallback onExit;
 
-  const HoverMenuSneakers({
+  const HoverMenuClothes({
     super.key,
     required this.position,
     required this.categories,
@@ -68,9 +68,7 @@ class HoverMenuSneakers extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => ProductsPage(
-                                    category: entry.key,
-                                    size: size,
-                                  ),
+                                      category: entry.key, size: size),
                                 ),
                               );
                             },

@@ -1,5 +1,5 @@
-import 'package:drop_check_store/app/home/pages/regulations_page.dart';
-import 'package:drop_check_store/widgets/link_text.dart';
+import 'package:drop_check_store/features/home/regulations/presentation/pages/regulations_page.dart';
+import 'package:drop_check_store/core/widgets/link_text.dart';
 import 'package:flutter/material.dart';
 
 class BottomHub extends StatelessWidget {

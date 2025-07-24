@@ -1,8 +1,8 @@
-import 'package:drop_check_store/widgets/bottom_hub.dart';
-import 'package:drop_check_store/widgets/bestseller_products.dart';
-import 'package:drop_check_store/widgets/brand_hub.dart';
-import 'package:drop_check_store/widgets/banner_carousel.dart';
-import 'package:drop_check_store/widgets/top_nav_bar.dart';
+import 'package:drop_check_store/core/widgets/bottom_hub.dart';
+import 'package:drop_check_store/features/home/presentation/widgets/bestseller_products.dart';
+import 'package:drop_check_store/features/home/presentation/widgets/brand_hub.dart';
+import 'package:drop_check_store/features/home/presentation/widgets/banner_carousel.dart';
+import 'package:drop_check_store/core/widgets/top_nav_bar.dart';
 import 'package:flutter/material.dart';
 
 class UltraWideHomePage extends StatelessWidget {

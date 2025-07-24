@@ -1,4 +1,4 @@
-import 'package:drop_check_store/app/home/pages/products_page.dart';
+import 'package:drop_check_store/features/home/products/presentation/pages/products_page.dart';
 import 'package:flutter/material.dart';
 
 class FilterSidebar extends StatefulWidget {
