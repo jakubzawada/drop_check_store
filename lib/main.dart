@@ -1,5 +1,3 @@
-import 'package:drop_check_store/app/login/login_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:drop_check_store/app/home/home_page.dart';
@@ -19,30 +17,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Drop Check Store',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const RootPage(),
+      home: const HomePage(),
     );
-  }
-}
-
-class RootPage extends StatelessWidget {
-  const RootPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          final user = snapshot.data;
-          if (user == null) {
-            return LoginPage();
-          }
-          return HomePage(user: user);
-        });
   }
 }

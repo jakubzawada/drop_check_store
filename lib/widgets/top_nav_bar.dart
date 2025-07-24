@@ -1,4 +1,5 @@
 import 'package:drop_check_store/app/home/home_page.dart';
+import 'package:drop_check_store/app/home/pages/account_page.dart';
 import 'package:drop_check_store/app/login/login_page.dart';
 import 'package:drop_check_store/widgets/hover_menu_clothes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,8 +12,6 @@ class TopNavBar extends StatefulWidget {
   @override
   TopNavBarState createState() => TopNavBarState();
 }
-
-late final User user;
 
 class TopNavBarState extends State<TopNavBar> {
   OverlayEntry? _overlayEntry;
@@ -46,112 +45,147 @@ class TopNavBarState extends State<TopNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: 0,
-      left: 0,
-      right: 0,
-      child: CompositedTransformTarget(
-        link: _layerLink,
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 20),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: const Color.fromRGBO(0, 0, 0, 0.2),
-                blurRadius: 5,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: Row(
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => HomePage(
-                              user: user,
-                            )),
-                  );
-                },
-                child: const Image(
-                  image: AssetImage('images/DCLogo2.png'),
-                  width: 80,
-                  height: 80,
-                ),
-              ),
-              const SizedBox(width: 20),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildMenuItem(
-                      context,
-                      'ODZIEŻ',
-                      {
-                        'Spodnie': ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-                        'Bluzy': ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-                        'Koszulki': ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-                        'Kurtki': ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-                      },
-                      true,
-                    ),
-                    const SizedBox(width: 20),
-                    _styledDivider(),
-                    const SizedBox(width: 20),
-                    _buildMenuItem(
-                      context,
-                      'BUTY',
-                      {
-                        'Wszystkie': [],
-                        'Air Jordan': ['40', '41', '42', '43', '44', '45'],
-                        'Nike': ['40', '41', '42', '43', '44', '45'],
-                        'Adidas': ['40', '41', '42', '43', '44', '45'],
-                        'Adidas Yeezy': ['40', '41', '42', '43', '44', '45'],
-                        'New Balance': ['40', '41', '42', '43', '44', '45'],
-                      },
-                      false,
-                    ),
-                    const SizedBox(width: 20),
-                    _styledDivider(),
-                    const SizedBox(width: 20),
-                    _staticMenuItem('AKCESORIA'),
-                    const SizedBox(width: 20),
-                    _styledDivider(),
-                    const SizedBox(width: 20),
-                    _staticMenuItem('PROMOCJE'),
-                    const SizedBox(width: 20),
-                    _styledDivider(),
-                    const SizedBox(width: 20),
-                    _staticMenuItem('KARTY PODARUNKOWE'),
-                  ],
-                ),
-              ),
-              Row(
-                children: [
-                  Icon(Icons.search, size: 30),
-                  SizedBox(width: 20),
-                  InkWell(
-                    child: Icon(Icons.person, size: 30),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LoginPage(),
-                        ),
-                      );
-                    },
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        final user = snapshot.data;
+
+        return Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          child: CompositedTransformTarget(
+            link: _layerLink,
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color.fromRGBO(0, 0, 0, 0.2),
+                    blurRadius: 5,
+                    offset: const Offset(0, 4),
                   ),
-                  SizedBox(width: 20),
-                  Icon(Icons.shopping_bag_outlined, size: 30),
                 ],
               ),
-            ],
+              child: Row(
+                children: [
+                  // logo
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (_) => const HomePage()),
+                      );
+                    },
+                    child: const Image(
+                      image: AssetImage('images/DCLogo2.png'),
+                      width: 80,
+                      height: 80,
+                    ),
+                  ),
+                  const SizedBox(width: 20),
+                  // menu
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _buildMenuItem(
+                            context,
+                            'ODZIEŻ',
+                            {
+                              'Spodnie': ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+                              'Bluzy': ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+                              'Koszulki': ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+                              'Kurtki': ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+                            },
+                            true),
+                        const SizedBox(width: 20),
+                        _styledDivider(),
+                        const SizedBox(width: 20),
+                        _buildMenuItem(
+                            context,
+                            'BUTY',
+                            {
+                              'Wszystkie': [],
+                              'Air Jordan': [
+                                '40',
+                                '41',
+                                '42',
+                                '43',
+                                '44',
+                                '45'
+                              ],
+                              'Nike': ['40', '41', '42', '43', '44', '45'],
+                              'Adidas': ['40', '41', '42', '43', '44', '45'],
+                              'Adidas Yeezy': [
+                                '40',
+                                '41',
+                                '42',
+                                '43',
+                                '44',
+                                '45'
+                              ],
+                              'New Balance': [
+                                '40',
+                                '41',
+                                '42',
+                                '43',
+                                '44',
+                                '45'
+                              ],
+                            },
+                            false),
+                        const SizedBox(width: 20),
+                        _styledDivider(),
+                        const SizedBox(width: 20),
+                        _staticMenuItem('AKCESORIA'),
+                        const SizedBox(width: 20),
+                        _styledDivider(),
+                        const SizedBox(width: 20),
+                        _staticMenuItem('PROMOCJE'),
+                        const SizedBox(width: 20),
+                        _styledDivider(),
+                        const SizedBox(width: 20),
+                        _staticMenuItem('KARTY PODARUNKOWE'),
+                      ],
+                    ),
+                  ),
+                  // icons
+                  Row(
+                    children: [
+                      const Icon(Icons.search, size: 30),
+                      const SizedBox(width: 20),
+                      InkWell(
+                        onTap: () {
+                          if (user != null) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const AccountPage(),
+                              ),
+                            );
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const LoginPage(),
+                              ),
+                            );
+                          }
+                        },
+                        child: const Icon(Icons.person, size: 30),
+                      ),
+                      const SizedBox(width: 20),
+                      const Icon(Icons.shopping_bag_outlined, size: 30),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 

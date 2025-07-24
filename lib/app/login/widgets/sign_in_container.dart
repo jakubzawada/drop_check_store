@@ -1,3 +1,4 @@
+import 'package:drop_check_store/app/home/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -68,28 +69,28 @@ class _SignInContainerState extends State<SignInContainer> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
-                if (isCreatingAccount == true) {
-                  try {
+                try {
+                  if (isCreatingAccount) {
                     await FirebaseAuth.instance.createUserWithEmailAndPassword(
                       email: widget.emailController.text,
                       password: widget.passwordController.text,
                     );
-                  } catch (error) {
-                    setState(() {
-                      errorMessage = error.toString();
-                    });
-                  }
-                } else {
-                  try {
+                  } else {
                     await FirebaseAuth.instance.signInWithEmailAndPassword(
                       email: widget.emailController.text,
                       password: widget.passwordController.text,
                     );
-                  } catch (error) {
-                    setState(() {
-                      errorMessage = error.toString();
-                    });
                   }
+
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (_) => const HomePage()),
+                    (route) => false,
+                  );
+                } catch (error) {
+                  setState(() {
+                    errorMessage = error.toString();
+                  });
                 }
               },
               style: ElevatedButton.styleFrom(
