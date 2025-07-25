@@ -105,7 +105,13 @@ class _FilterSidebarState extends State<FilterSidebar> {
                 ),
               );
             },
-            child: const Text("Zastosuj filtr"),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color.fromARGB(255, 81, 55, 126),
+            ),
+            child: const Text(
+              "Zastosuj filtr",
+              style: TextStyle(color: Colors.white),
+            ),
           ),
         ],
       ),
