@@ -2,6 +2,7 @@ import 'package:drop_check_store/features/home/home_page.dart';
 import 'package:drop_check_store/features/home/account/presentation/pages/account_page.dart';
 import 'package:drop_check_store/features/home/login/presentation/pages/login_page.dart';
 import 'package:drop_check_store/core/widgets/hover_menu_clothes.dart';
+import 'package:drop_check_store/features/home/products/presentation/pages/cart_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'hover_menu_sneakers.dart';
@@ -177,7 +178,19 @@ class TopNavBarState extends State<TopNavBar> {
                         child: const Icon(Icons.person, size: 30),
                       ),
                       const SizedBox(width: 20),
-                      const Icon(Icons.shopping_bag_outlined, size: 30),
+                      InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => CartPage(
+                                  cartItems: [],
+                                ),
+                              ),
+                            );
+                          },
+                          child: const Icon(Icons.shopping_bag_outlined,
+                              size: 30)),
                     ],
                   ),
                 ],

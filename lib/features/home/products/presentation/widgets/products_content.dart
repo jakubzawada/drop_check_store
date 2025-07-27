@@ -54,7 +54,7 @@ class ProductsContent extends StatelessWidget {
                     return const Center(child: Text('Brak produktów'));
                   }
 
-                  return ProductGridView(products: state.products);
+                  return ProductGridView();
                 },
               ),
             ],

@@ -1,3 +1,4 @@
+import 'package:drop_check_store/features/home/products/presentation/pages/cart_page.dart';
 import 'package:flutter/material.dart';
 import 'package:drop_check_store/core/widgets/top_nav_bar.dart';
 import 'package:drop_check_store/core/widgets/bottom_hub.dart';
@@ -98,11 +99,89 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                           sizes.isNotEmpty
                                       ? null
                                       : () {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            const SnackBar(
-                                                content:
-                                                    Text('Dodano do koszyka')),
+                                          showModalBottomSheet(
+                                            context: context,
+                                            shape: const RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.vertical(
+                                                      top: Radius.circular(20)),
+                                            ),
+                                            builder: (context) {
+                                              return Container(
+                                                padding:
+                                                    const EdgeInsets.all(24),
+                                                height: 240,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    const Text(
+                                                      'Dodano do koszyka 🎉',
+                                                      style: TextStyle(
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    const SizedBox(height: 12),
+                                                    Text(
+                                                      data['name'],
+                                                      style: const TextStyle(
+                                                          fontSize: 16),
+                                                    ),
+                                                    const Spacer(),
+                                                    Row(
+                                                      children: [
+                                                        Expanded(
+                                                          child: OutlinedButton(
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                            child: const Text(
+                                                                'Kontynuuj zakupy'),
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                            width: 12),
+                                                        Expanded(
+                                                          child: ElevatedButton
+                                                              .icon(
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                              Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                  builder: (_) =>
+                                                                      CartPage(
+                                                                    cartItems: [
+                                                                      {
+                                                                        'name':
+                                                                            data['name'],
+                                                                        'image':
+                                                                            data['image'],
+                                                                        'price':
+                                                                            data['price'],
+                                                                        'size':
+                                                                            selectedSize,
+                                                                      }
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                            icon: const Icon(Icons
+                                                                .shopping_cart_checkout_outlined),
+                                                            label: const Text(
+                                                                'Złóż zamówienie'),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            },
                                           );
                                         },
                                   style: ElevatedButton.styleFrom(
